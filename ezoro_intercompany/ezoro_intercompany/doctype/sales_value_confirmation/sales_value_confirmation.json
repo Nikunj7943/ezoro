@@ -1,0 +1,48 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2026-10-03 00:00:00",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series", "company", "customer", "column_break_1", "posting_date", "purchase_invoice", "currency",
+  "section_items", "items", "section_totals", "total_cost", "column_break_2", "total_sales_value",
+  "section_other", "remarks", "sales_invoice", "workflow_state", "amended_from"
+ ],
+ "fields": [
+  {"fieldname": "naming_series", "fieldtype": "Select", "hidden": 1, "label": "Series", "options": "SVC-.YYYY.-", "default": "SVC-.YYYY.-"},
+  {"fieldname": "company", "fieldtype": "Link", "in_list_view": 1, "in_standard_filter": 1, "label": "Company", "options": "Company", "reqd": 1},
+  {"fieldname": "customer", "fieldtype": "Link", "in_list_view": 1, "in_standard_filter": 1, "label": "Intercompany Customer", "options": "Customer", "reqd": 1},
+  {"fieldname": "column_break_1", "fieldtype": "Column Break"},
+  {"default": "Today", "fieldname": "posting_date", "fieldtype": "Date", "label": "Posting Date", "reqd": 1},
+  {"fieldname": "purchase_invoice", "fieldtype": "Link", "in_list_view": 1, "label": "Supplier Invoice", "options": "Purchase Invoice", "reqd": 1},
+  {"fetch_from": "purchase_invoice.currency", "fieldname": "currency", "fieldtype": "Link", "label": "Currency", "options": "Currency", "read_only": 1},
+  {"fieldname": "section_items", "fieldtype": "Section Break", "label": "Items"},
+  {"fieldname": "items", "fieldtype": "Table", "label": "Items", "options": "Sales Value Confirmation Item", "reqd": 1},
+  {"fieldname": "section_totals", "fieldtype": "Section Break"},
+  {"fieldname": "total_cost", "fieldtype": "Currency", "label": "Total Purchase Value", "options": "currency", "read_only": 1},
+  {"fieldname": "column_break_2", "fieldtype": "Column Break"},
+  {"fieldname": "total_sales_value", "fieldtype": "Currency", "in_list_view": 1, "label": "Total Sales Value", "options": "currency", "read_only": 1},
+  {"fieldname": "section_other", "fieldtype": "Section Break"},
+  {"fieldname": "remarks", "fieldtype": "Small Text", "label": "Remarks"},
+  {"fieldname": "sales_invoice", "fieldtype": "Link", "label": "Sales Invoice", "no_copy": 1, "options": "Sales Invoice", "read_only": 1},
+  {"allow_on_submit": 1, "fieldname": "workflow_state", "fieldtype": "Link", "in_list_view": 1, "in_standard_filter": 1, "label": "Approval Status", "no_copy": 1, "options": "Workflow State", "read_only": 1},
+  {"fieldname": "amended_from", "fieldtype": "Link", "label": "Amended From", "no_copy": 1, "options": "Sales Value Confirmation", "print_hide": 1, "read_only": 1}
+ ],
+ "is_submittable": 1,
+ "modified": "2026-10-03 00:00:00",
+ "module": "Ezoro Intercompany",
+ "name": "Sales Value Confirmation",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {"create": 1, "read": 1, "role": "Purchase User", "write": 1},
+  {"read": 1, "role": "Sales User"},
+  {"create": 1, "read": 1, "role": "Sales Value Approver", "submit": 1, "write": 1},
+  {"create": 1, "delete": 1, "read": 1, "role": "System Manager", "submit": 1, "write": 1, "cancel": 1}
+ ],
+ "sort_field": "creation",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

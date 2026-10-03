@@ -262,3 +262,19 @@ app_license = "mit"
 # List of apps whose translatable strings should be excluded from this app's translations.
 # ignore_translatable_strings_from = []
 
+
+fixtures = [
+	{"dt": "Role", "filters": [["name", "=", "Sales Value Approver"]]},
+	"Workflow State",
+	"Workflow Action Master",
+	{"dt": "Custom Field", "filters": [["module", "=", "Ezoro Intercompany"]]},
+	{"dt": "Workflow", "filters": [["name", "=", "Sales Value Confirmation Approval"]]},
+]
+
+doc_events = {
+	"Sales Invoice": {
+		"validate": "ezoro_intercompany.events.sales_invoice.validate",
+		"on_submit": "ezoro_intercompany.events.sales_invoice.on_submit",
+		"on_cancel": "ezoro_intercompany.events.sales_invoice.on_cancel",
+	}
+}

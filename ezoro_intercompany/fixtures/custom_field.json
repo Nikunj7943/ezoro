@@ -1,0 +1,16 @@
+[
+ {
+  "doctype": "Custom Field",
+  "dt": "Sales Invoice",
+  "fieldname": "sales_value_confirmation",
+  "fieldtype": "Link",
+  "insert_after": "inter_company_invoice_reference",
+  "label": "Sales Value Confirmation",
+  "module": "Ezoro Intercompany",
+  "no_copy": 1,
+  "options": "Sales Value Confirmation",
+  "read_only": 1,
+  "search_index": 1,
+  "name": "Sales Invoice-sales_value_confirmation"
+ }
+]

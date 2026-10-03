@@ -1,0 +1,8 @@
+[
+ {
+  "doctype": "Role",
+  "role_name": "Sales Value Approver",
+  "desk_access": 1,
+  "name": "Sales Value Approver"
+ }
+]
