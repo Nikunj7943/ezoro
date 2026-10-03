@@ -12,22 +12,20 @@ bench --site <site> install-app ezoro_intercompany
 bench --site <site> migrate
 ```
 
-Migrate imports the custom doctypes, the report, and the fixtures (role, workflow states and actions, workflow, one custom field).
+Prerequisite: the ERPNext setup wizard must be complete on the site.
 
-The two companies are created in the ERPNext UI first:
-
-| Company | Abbr | Currency | Country |
-|---|---|---|---|
-| Ecofinit Dubai | ED | AED | United Arab Emirates |
-| Metal Green Saudi Arabia | MGS | SAR | Saudi Arabia |
-
-Then create the masters and demo users (safe to run again):
+`install-app` runs the setup automatically. Migrate imports the custom doctypes, the report and the fixtures (role, workflow states and actions, workflow, one custom field), and the install hook creates the masters and users below. If the setup wizard was not complete at install time, finish it and run the setup once by hand (it is safe to run again):
 
 ```bash
 bench --site <site> execute ezoro_intercompany.setup.masters.run
 ```
 
-This creates: UOM `MT`, price list `Intercompany SAR`, SAR to AED exchange rate, two SAR accounts under Ecofinit, item `ALU-DROSS-001`, supplier `Gulf Metal Recyclers`, the intercompany customer and supplier pair, and three users:
+It creates the two companies, three warehouses, UOM `MT`, the `Intercompany SAR` price list, a SAR to AED exchange rate, two SAR accounts under Ecofinit, item `ALU-DROSS-001`, supplier `Gulf Metal Recyclers`, the intercompany customer and supplier pair, and three users with company user permissions:
+
+| Company | Abbr | Currency | Chart of accounts |
+|---|---|---|---|
+| Ecofinit Dubai | ED | AED | U.A.E - Chart of Accounts |
+| Metal Green Saudi Arabia | MGS | SAR | Standard |
 
 | User | Company | Roles |
 |---|---|---|

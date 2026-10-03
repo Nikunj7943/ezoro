@@ -1,26 +1,47 @@
 [
  {
+  "docstatus": 0,
   "doctype": "Workflow State",
-  "workflow_state_name": "Draft",
+  "icon": "question-sign",
+  "modified": "2026-10-03 20:36:35.047561",
+  "name": "Pending",
   "style": "",
-  "name": "Draft"
+  "workflow_state_name": "Pending"
  },
  {
+  "docstatus": 0,
   "doctype": "Workflow State",
-  "workflow_state_name": "Pending Approval",
+  "icon": null,
+  "modified": "2026-10-03 21:50:06.668779",
+  "name": "Draft",
+  "style": "",
+  "workflow_state_name": "Draft"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Workflow State",
+  "icon": null,
+  "modified": "2026-10-03 21:50:06.718381",
+  "name": "Pending Approval",
   "style": "Warning",
-  "name": "Pending Approval"
+  "workflow_state_name": "Pending Approval"
  },
  {
+  "docstatus": 0,
   "doctype": "Workflow State",
-  "workflow_state_name": "Approved",
+  "icon": null,
+  "modified": "2026-10-03 21:50:06.755503",
+  "name": "Approved",
   "style": "Success",
-  "name": "Approved"
+  "workflow_state_name": "Approved"
  },
  {
+  "docstatus": 0,
   "doctype": "Workflow State",
-  "workflow_state_name": "Rejected",
+  "icon": null,
+  "modified": "2026-10-03 21:50:06.799845",
+  "name": "Rejected",
   "style": "Danger",
-  "name": "Rejected"
+  "workflow_state_name": "Rejected"
  }
 ]

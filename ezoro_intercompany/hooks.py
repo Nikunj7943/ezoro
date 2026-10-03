@@ -278,3 +278,5 @@ doc_events = {
 		"on_cancel": "ezoro_intercompany.events.sales_invoice.on_cancel",
 	}
 }
+
+after_install = "ezoro_intercompany.setup.masters.after_install"

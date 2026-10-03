@@ -34,8 +34,38 @@ USERS = [
 ]
 
 
+COMPANIES = [
+	{
+		"company_name": ECOFINIT,
+		"abbr": "ED",
+		"default_currency": "AED",
+		"country": "United Arab Emirates",
+		"chart_of_accounts": "U.A.E - Chart of Accounts",
+	},
+	{
+		"company_name": METAL_GREEN,
+		"abbr": "MGS",
+		"default_currency": "SAR",
+		"country": "Saudi Arabia",
+		"chart_of_accounts": "Standard",
+	},
+]
+
+WAREHOUSES = [("Receiving", ECOFINIT), ("Receiving", METAL_GREEN), ("Main", METAL_GREEN)]
+
+
+def after_install():
+	if frappe.is_setup_complete():
+		run()
+	else:
+		print("Complete the ERPNext setup wizard, then run: bench execute ezoro_intercompany.setup.masters.run")
+
+
 def run():
+	ensure_currencies()
+	ensure_companies()
 	abbr = {company: frappe.get_cached_value("Company", company, "abbr") for company in (ECOFINIT, METAL_GREEN)}
+	ensure_warehouses(abbr)
 	ensure_uom()
 	ensure_price_list()
 	ensure_exchange_rate()
@@ -54,6 +84,33 @@ def ensure(doctype, filters, values):
 	if name:
 		return frappe.get_doc(doctype, name)
 	return frappe.get_doc({"doctype": doctype, **values}).insert()
+
+
+def ensure_currencies():
+	for currency in ("AED", "SAR"):
+		frappe.db.set_value("Currency", currency, "enabled", 1)
+
+
+def ensure_companies():
+	for spec in COMPANIES:
+		ensure(
+			"Company",
+			spec["company_name"],
+			{**spec, "create_chart_of_accounts_based_on": "Standard Template"},
+		)
+
+
+def ensure_warehouses(abbr):
+	for name, company in WAREHOUSES:
+		ensure(
+			"Warehouse",
+			f"{name} - {abbr[company]}",
+			{
+				"warehouse_name": name,
+				"company": company,
+				"parent_warehouse": f"All Warehouses - {abbr[company]}",
+			},
+		)
 
 
 def ensure_uom():
@@ -181,7 +238,6 @@ def ensure_user(spec):
 	if frappe.db.exists("User", spec["email"]):
 		user = frappe.get_doc("User", spec["email"])
 		user.add_roles(*spec["roles"])
-		user.remove_roles(*[r.role for r in user.roles if r.role not in spec["roles"]])
 	else:
 		frappe.get_doc(
 			{
