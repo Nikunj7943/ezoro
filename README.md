@@ -119,7 +119,20 @@ I reproduced the two common data causes in a rolled-back transaction on a PO of 
 
 Fix is on the data, never a database patch: cancel or amend the offending document so ERPNext recalculates. A direct database edit of a submitted document is not used.
 
-## 6. Technical questions
+## 6. Tests
+
+`ezoro_intercompany/tests/test_intercompany_flow.py` has 8 integration tests. Each builds its own PO, receipts and invoices and rolls the database back afterwards.
+
+They cover: ordered / received / pending after each of the 30, 40, 30 receipts; one supplier invoice for three receipts; buyer cannot approve and cannot set Approved directly, approver can; a rejected confirmation cannot be invoiced; an intercompany Sales Invoice is blocked without approval, with a changed value, and on reuse; the full chain from confirmation to Metal Green stock; tracker rows and status per user, including company isolation.
+
+Run on a site that has the setup from section 1:
+
+```bash
+bench --site <site> set-config allow_tests true
+bench --site <site> run-tests --app ezoro_intercompany
+```
+
+## 7. Technical questions
 
 **1. What was achieved with standard ERPNext?** Company setup, masters, partial receipts and quantity tracking, supplier invoice against several receipts, attachments, traceability, the intercompany Purchase Invoice, Metal Green stock and the warehouse transfer, roles and company restrictions, and the workflow engine itself.
 
